@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>先进粒子束实验室</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        :root {
+            --primary: #0a2463;
+            --secondary: #61dafb;
+            --accent: #ff5252;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #1e3a8a);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(10, 36, 99, 0.85), rgba(10, 36, 99, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230a2463"/><path d="M0 0L100 100M100 0L0 100" stroke="%2361dafb" stroke-width="0.5"/></svg>');
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--primary);
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+        }
+
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .equipment {
+            background-color: var(--light);
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .equipment-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .equipment-img {
+            height: 200px;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .equipment-content {
+            padding: 1.5rem;
+        }
+
+        .equipment-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .ai-assistant {
+            background: linear-gradient(135deg, var(--primary), #1e3a8a);
+            color: white;
+        }
+
+        .ai-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .ai-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .ai-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background-color: var(--secondary);
+            color: var(--primary);
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
+        }
+
+        .bot-message {
+            background-color: #e9ecef;
+            color: var(--dark);
+            border-bottom-left-radius: 2px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 50px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .input-group button {
+            background-color: var(--secondary);
+            color: var(--primary);
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .input-group button:hover {
+            background-color: white;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #495057;
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+
+        /* 粒子动画 */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(97, 218, 251, 0.5);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000%) translateX(1000%);
+                opacity: 0;
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">⚛</div>
+                <h1>先进粒子束实验室</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">关于我们</a></li>
+                    <li><a href="#research">研究方向</a></li>
+                    <li><a href="#equipment">实验设备</a></li>
+                    <li><a href="#ai-assistant">智能助手</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <h2>利用自主研制的多粒子符合动量成像谱仪(Reaction Microscope, COLTRIMS)</h2>
+            <p>研究原子分子及团簇结构和超快动力学机制、量子多体动力学、强场及高次谐波阿秒光源、分子间超快能量转移、电荷转移、团簇环境效应等。</p>
+            <a href="#research" class="btn">了解我们的研究</a>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>关于实验室</h2>
+                <p>近年来主持多项重大科研项目/课题，获得众多成果</p>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔬</div>
+                    <h3>前沿研究</h3>
+                    <p>专注于原子分子碰撞动力学；原子、分子及团簇电离解离机制；分子间库仑衰变ICD效应；生物辐射损伤机制；二维位置-时间灵敏探测系统；多粒子符合成像谱仪等领域，取得多项重要科研成果。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>专业团队</h3>
+                    <p>由任雪光教授，周家琪助理教授，多位博士研究生和硕士研究生组成，具备丰富的理论知识和实践经验。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>合作交流</h3>
+                    <p>与国内外多所知名高校和研究机构保持紧密合作，定期举办学术交流活动。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 研究方向 -->
+    <section id="research" class="equipment">
+        <div class="container">
+            <div class="section-title">
+                <h2>研究方向</h2>
+                <p>我们的研究涵盖原子与分子物理、团簇、超快强场激光及应用等领域。</p>
+            </div>
+            <div class="equipment-grid">
+                <div class="equipment-card">
+                    <div class="equipment-img">原子与分子物理</div>
+                    <div class="equipment-content">
+                        <h3>原子与分子物理</h3>
+                        <p>研究原子分子碰撞动力学，分子间库仑衰变ICD效应等。</p>
+                    </div>
+                </div>
+                <div class="equipment-card">
+                    <div class="equipment-img">团簇</div>
+                    <div class="equipment-content">
+                        <h3>团簇</h3>
+                        <p>研究原子、分子及团簇电离解离机制等。</p>
+                    </div>
+                </div>
+                <div class="equipment-card">
+                    <div class="equipment-img">光学</div>
+                    <div class="equipment-content">
+                        <h3>光学</h3>
+                        <p>研究强场及高次谐波阿秒光源等。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 实验设备 -->
+    <section id="equipment">
+        <div class="container">
+            <div class="section-title">
+                <h2>实验设备</h2>
+		<img src=""C:\Users\Administrator\Desktop\实验装置.png"" alt="实验设备图片">
+                <p>实验室配备电子碰撞反应动量谱仪装置，为科研工作提供强有力的技术支持。</p>
+            </div>
+            <div class="equipment-grid">
+                <div class="equipment-card">
+                    <div class="equipment-img">高真空系统</div>
+                    <div class="equipment-content">
+                        <h3>真空系统主要由一级、二级差分，反应主腔和收集极组成</h3>
+                        <p>反应腔室真空度约为5.0×10-9mbar，烘烤后可以达到10-10mbar。</p>
+                    </div>
+                </div>
+                <div class="equipment-card">
+                    <div class="equipment-img">超声冷靶系统</div>
+                    <div class="equipment-content">
+                        <h3>采用超声冷靶技术</h3>
+                        <p>超声喷嘴，两个保持在一条直线上的skimmer。</p>
+                    </div>
+                </div>
+                <div class="equipment-card">
+                    <div class="equipment-img">UV光驱动脉冲电子枪</div>
+                    <div class="equipment-content">
+                        <h3>分为激光和电子枪两部分</h3>
+                        <p>相比于传统的热阴极电子枪可以减少电子能量分散。</p>
+                    </div>
+                </div>
+		<div class="equipment-card">
+                    <div class="equipment-img">其他</div>
+                    <div class="equipment-content">
+                        <h3>稳恒电场和磁场系统，时间-位置灵敏探测器和数据获取系统</h3>
+                        <p>暂未完成理解。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 智能助手 -->
+    <section id="ai-assistant" class="ai-assistant">
+        <div class="container">
+            <div class="section-title">
+                <h2>实验室智能助手</h2>
+                <p>有任何关于粒子束技术或实验室的问题，都可以向我们的智能助手咨询。</p>
+            </div>
+            <div class="ai-container">
+                <div class="ai-header">
+                    <h2>粒子束实验室助手</h2>
+                    <p>您好！我是粒子束实验室的智能助手，请问有什么可以帮您？</p>
+                </div>
+                <div class="chat-container" id="chat-container">
+                    <div class="message bot-message">
+                        您好！我是粒子束实验室的智能助手，请问有什么可以帮您？
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="user-input" placeholder="请输入您的问题...">
+                    <button id="send-btn">发送</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>联系我们</h3>
+                    <ul>
+                        <li>地址：西安市碑林区咸宁西路28号</li>
+                        <li>电话：+86-888-8888888</li>
+                        <li>邮箱：renxueguang@xjtu.edu.cn</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="#about">关于我们</a></li>
+                        <li><a href="#research">研究方向</a></li>
+                        <li><a href="#equipment">实验设备</a></li>
+                        <li><a href="#ai-assistant">智能助手</a></li>
+			<li><a href="https://gr.xjtu.edu.cn/en/web/renxueguang/prof.-dr.-xueguang-ren">老师个人页面</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>开放时间</h3>
+                    <ul>
+                        <li>周一至周五：9:00 - 18:00</li>
+                        <li>周六：9:00 - 12:00</li>
+                        <li>周日：休息</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 先进粒子束实验室 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 粒子动画
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // 随机大小
+                const size = Math.random() * 6 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 随机位置
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // 智能问答功能
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            const chatContainer = document.getElementById('chat-container');
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+            
+            // 常见问题与回答
+            const responses = {
+                "实验室研究方向": "我们主要研究原子分子及团簇结构和超快动力学机制、量子多体动力学、强场及高次谐波阿秒光源、分子间超快能量转移、电荷转移、团簇环境效应等。",
+                "实验室装置": "我们实验中使用的电子碰撞反应动量谱仪装置。反应谱仪主要包括高真空系统，UV光驱动脉冲电子枪，超声冷靶系统，稳恒电场和磁场系统，时间-位置灵敏探测器和数据获取系统。",
+                "如何合作": "我们欢迎与高校、研究机构和企业开展合作研究。请通过contact@ionbeamlab.com与我们联系，讨论具体合作事宜。",
+                "参观实验室": "我们定期举办开放日活动，欢迎提前预约参观。请通过电话或邮件联系我们安排参观时间。",
+                "加入我们": "欢迎对原子与分子物理、团簇、超快强场激光及应用等感兴趣的硕士、博士研究生、助理教授、副教授和教授等教学科研人员加入！"
+            };
+            
+            // 默认回答
+            const defaultResponse = "抱歉，我无法回答这个问题。您可以尝试询问实验室研究方向、设备、合作方式等内容，或直接联系我们获取更详细的信息。";
+            
+            // 发送消息函数
+            function sendMessage() {
+                const message = userInput.value.trim();
+                if (message === '') return;
+                
+                // 添加用户消息
+                addMessage(message, 'user');
+                
+                // 清空输入框
+                userInput.value = '';
+                
+                // 模拟AI思考
+                setTimeout(() => {
+                    let response = defaultResponse;
+                    
+                    // 查找匹配的回答
+                    for (const key in responses) {
+                        if (message.toLowerCase().includes(key.toLowerCase())) {
+                            response = responses[key];
+                            break;
+                        }
+                    }
+                    
+                    // 添加AI回复
+                    addMessage(response, 'bot');
+                }, 1000);
+            }
+            
+            // 添加消息到聊天窗口
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+                messageDiv.textContent = text;
+                
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            // 事件监听
+            sendBtn.addEventListener('click', sendMessage);
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // 添加示例问题
+            setTimeout(() => {
+                addMessage("您可以尝试问我：实验室研究方向、实验室装置、如何合作等", 'bot');
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
